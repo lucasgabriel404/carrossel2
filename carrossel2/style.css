@@ -1,0 +1,47 @@
+:root {
+  --largura-carrossel: 800px;
+  --altura-carrossel: 600px;
+}
+
+.carrossel {
+  position: relative;
+  width: var(--largura-carrossel);
+  height: var(--altura-carrossel);
+  overflow: hidden;
+}
+
+.carrossel-track {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+
+.slide {
+  width: var(--largura-carrossel);
+  height: var(--altura-carrossel);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  background: white;
+}
+
+.slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#prev { left: 0; }
+#next { right: 0; }
