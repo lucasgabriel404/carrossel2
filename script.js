@@ -13,8 +13,12 @@ let currentIndex = 0;
 images.forEach(src => {
   const slide = document.createElement('div');
   slide.classList.add('slide');
-  slide.style.backgroundImage = `url('${src}')`
-  track.appendChild(slide); // moldura dentro do track
+
+  const img = document.createElement("img");
+  img.src = src;
+
+  slide.appendChild(img);
+  track.appendChild(slide);
 });
 
 // atualiza posição do carrossel
@@ -22,28 +26,24 @@ function updateCarousel() {
   track.style.transform = `translateX(-${currentIndex * 800}px)`;
 
   Array.from(track.children).forEach(slide => {
-    slide.style.backgroundSize = 'contain';
-    slide.style.backgroundPosition = 'center';
-    slide.onmousemove = null;
-    slide.onmouseleave = null;
+    const img = slide.querySelector('img');
+    img.onmousemove = null;
+    img.onmouseleave = null;
   });
 
-  const activeSlide = track.children[currentIndex];
+  const activeSlide = track.children[currentIndex].querySelector('img');
 
   activeSlide.addEventListener('mousemove', (e) => {
-
     const px = (e.offsetX / activeSlide.clientWidth) * 100;
     const py = (e.offsetY / activeSlide.clientHeight) * 100;
 
-    activeSlide.style.backgroundSize = '120%'; // zoom
-    activeSlide.style.backgroundPosition = `${px}% ${py}%`;
+    activeSlide.style.transform = 'scale(2)';
+    activeSlide.style.transformOrigin = `${px}% ${py}%`;
   });
 
   activeSlide.addEventListener('mouseleave', () => {
-    activeSlide.style.backgroundSize = 'contain';
-    activeSlide.style.backgroundPosition = 'center';
-  });
-  
+    activeSlide.style.transform = 'scale(1)';
+  });  
 }
 
 // botão próximo
